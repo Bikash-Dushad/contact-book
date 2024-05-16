@@ -1,0 +1,19 @@
+{
+  "name": "velo-certification-project",
+  "version": "1.0.0",
+  "description": "A contact deatails",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bikash",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.0",
+    "nodemon": "^3.1.0"
+  }
+}
