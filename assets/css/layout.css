@@ -19,11 +19,7 @@ body {
 #top h1 {
     margin: 0;
 }
-#home-n-employee{
-  width: 30%;
-  display: flex;
-  justify-content: space-around;
-}
+
 
 .navlinkk {
     text-decoration: none;
@@ -53,3 +49,4 @@ body {
 #userlogout a:hover {
     background-color: #263238;
 }
+

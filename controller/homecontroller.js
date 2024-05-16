@@ -6,7 +6,7 @@ const path = require('path')
 module.exports.layout = async (req, res)=>{
     if(req.cookies.user_id){
         var user = await User.findById(req.cookies.user_id);
-        var phonebook = await Phonebook.find({})
+        var phonebook = await Phonebook.find({}).populate('user')
         if(user){
                 return res.render('layout',{
                     user: user,
@@ -22,10 +22,11 @@ module.exports.layout = async (req, res)=>{
     }
 }
 
-module.exports.addDetails = async (req, res)=>{
+module.exports.addDetails = async (req, res) => {
     try {
         if (req.files) {
             const { fname, lname, pnumber, email, dob } = req.body;
+            const userId = req.cookies.user_id;
 
             console.log('Request Body:', req.body); // Debug log
             console.log('Files:', req.files); // Debug log
@@ -63,6 +64,7 @@ module.exports.addDetails = async (req, res)=>{
                             email,
                             dob,
                             fileLocation,
+                            user: userId // Set the user field
                         });
 
                         console.log(newPhonebook);
@@ -78,5 +80,40 @@ module.exports.addDetails = async (req, res)=>{
         console.log(error);
         res.status(500).send('An error occurred');
     }
-    
+};
+
+
+module.exports.details = async (req, res)=>{
+    try {
+        if(req.cookies.user_id){
+            var user = await User.findById(req.cookies.user_id);
+            var phonebook = await Phonebook.find({})
+            if(user){
+                return res.render("details",{
+                user: user,
+                phonebook: phonebook
+            })
+            }
+        }
+} catch (error) {
+    res.status(500).json({ message: error.message });
 }
+}
+
+module.exports.delete = async function(req, res){
+    try {
+      var phonebook = await Phonebook.findById(req.params.id);
+ 
+      if(phonebook.user == req.cookies.user_id){
+         await Phonebook.deleteOne({ _id: phonebook._id });
+        //  req.flash('success', "Text deleted successfully")
+          return res.redirect('back')
+      }else{
+        //  req.flash('error', "You are not authorized to deletee others Text")
+          console.log("not authorized")
+          return res.redirect('back')
+      }
+    } catch (error) {
+     console.log(error)
+    }
+ }

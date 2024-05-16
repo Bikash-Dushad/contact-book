@@ -9,6 +9,7 @@ const phonebook = new Schema({
     email: { type: String, required: true, unique: true },
     dob: { type: String, required: true },
     fileLocation: { type: String, required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}
     },
 {
     timestamps: true

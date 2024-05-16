@@ -6,6 +6,70 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/layout.css" />
+    <style>
+       
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container input[type="email"],
+        .form-container input[type="date"],
+        .form-container input[type="file"],
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .phonebook-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .phonebook-list a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .phonebook-list li {
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .phonebook-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .phonebook-list h3 {
+            margin: 5px 0;
+        }
+
+        .phonebook-list li + br {
+            display: none;
+        }
+    </style>
     <script src="https://kit.fontawesome.com/f383b6eabf.js" crossorigin="anonymous"></script>
 
     <meta charset="UTF-8">
@@ -22,31 +86,33 @@
         </div>
     </nav>
 
-    <form action="addDetails" method="post" enctype="multipart/form-data">
-        <input type="text" id="fname" name="fname" placeholder="First name" required>
-        <input type="text" id="lname" name="lname" placeholder="Last name" required>
-        <input type="number" id="pnumber" name="pnumber" placeholder="Phone number" required>
-        <input type="email" id="email" name="email" placeholder="abc@gmail.com" required>
-        <input type="date" id="dob" name="dob" placeholder="Date of Birth" required>
-        <input type="file" id="profile" name="profile" placeholder="choose profile" required>
-        <input type="submit" value="Add">
-    </form>
+    <div class="form-container">
+        <form action="addDetails" method="post" enctype="multipart/form-data">
+            <input type="text" id="fname" name="fname" placeholder="First name" required>
+            <input type="text" id="lname" name="lname" placeholder="Last name" required>
+            <input type="number" id="pnumber" name="pnumber" placeholder="Phone number" required>
+            <input type="email" id="email" name="email" placeholder="abc@gmail.com" required>
+            <input type="date" id="dob" name="dob" placeholder="Date of Birth" required>
+            <input type="file" id="profile" name="profile" placeholder="choose profile" required>
+            <input type="submit" value="Add">
+        </form>
+    </div>
 
     <!-- List of Employees -->
     <% for(let phonebook1 of phonebook){ %>
-        <%= phonebook1.fname %> %>
-        <% } %>
-    <ul>
-        <li>
-            <img src="" alt="1">
-            <P>Name 1</P>
-        </li>
-        <li>
-            <img src="" alt="2">
-            <p>Name 2</p>
-        </li>
-    </ul>
 
+        <ul class="phonebook-list">
+            <a href="/user/details">
+                <li>
+                    <h3><%= phonebook1.fname %></h3>
+                    <h3><%= phonebook1.pnumber %></h3>
+                </li>
+            </a>
+            <br>
+        </ul>
+
+    <% } %>
+        
 </body>
 
 </html>
